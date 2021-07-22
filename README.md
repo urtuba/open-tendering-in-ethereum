@@ -15,3 +15,6 @@ The bidder uses program with 'bid' argument:
 <code>
     $ py create_hash.py bid
 </code>
+
+# Licence
+Source code can be used for any purpose without warranty. Anyone who uses this code should mention the original copy, reveal source code and licence. For details: [GNU GPLv3](https://raw.githubusercontent.com/urtuba/open-tendering-in-ethereum/main/LICENSE). Contact to use commercially without revealing source code or licence.
