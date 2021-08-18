@@ -14,7 +14,7 @@ contract TenderData is TenderTimer, TenderLib {
             tenderHash is stored to verify tender is valid,
             bidHashes is stored to verify bids are valid,
     */
-    address owner;
+    address public owner;
     bytes32 public tenderHash;
     mapping (address => bytes32) public bidHashes;
     

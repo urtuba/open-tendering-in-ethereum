@@ -12,7 +12,7 @@ contract Tender is TenderData {
         It delegates controls, functions and storing hashes to
         other contracts. It is responsible to determine the winner.
     */
-    bool finished = false;
+    bool public finished = false;
     
     uint public estimated;
     uint public minimum;
