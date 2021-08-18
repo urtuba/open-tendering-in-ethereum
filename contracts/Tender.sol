@@ -33,6 +33,7 @@ contract Tender is TenderData {
     }
     
     function makeBid (bytes32 _bidHash) public {
+        require (msg.sender != owner);
         require (bidHashes[msg.sender] == 0);
         _makeBid(_bidHash);
         emit NewBid(msg.sender, _bidHash);
@@ -62,11 +63,10 @@ contract Tender is TenderData {
         return true;
     }
     
-    function endTender (uint _min, uint _max, uint _est, uint _randomStr) public returns (bool) {
-        _endTimeCheck();
+    function endTender (uint _min, uint _max, uint _est, string memory _randomStr) public returns (bool) {
         _isTenderValid(_min, _max, _est, _randomStr);
         
-        finished = true;
+        finished    = true;
         minimum     = _min;
         maximum     = _max;
         estimated   = _est;

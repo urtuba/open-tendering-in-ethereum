@@ -13,8 +13,9 @@ contract TenderTimer {
             _period1: period of accepting bids in days
             _period2: period of verifiying bids in days
         */
-        t1 = now + _period1 * 86400;
-        t2 = t1  + _period2 * 86400;
+        uint secondsInDay = 86400;
+        t1 = now + _period1 * secondsInDay;
+        t2 = t1  + _period2 * secondsInDay;
     }
     
     function _bidTimeCheck () internal view returns (bool) {

@@ -43,11 +43,11 @@ contract TenderData is TenderTimer, TenderLib {
         return true;
     }
     
-    function _isTenderValid(uint _min, uint _max, uint _est, uint _randomStr) internal view returns (bool) {
+    function _isTenderValid(uint _min, uint _max, uint _est, string memory _randomStr) internal returns (bool) {
         require (msg.sender == owner);
         _endTimeCheck();
         
-        bytes memory str = abi.encodePacked(uint2str(_min), "+", uint2str(_max), "+", uint2str(_est), _randomStr);
+        bytes memory str = abi.encodePacked(uint2str(_est), "+", uint2str(_min), "+", uint2str(_max), _randomStr);
         require (keccak256(str) == tenderHash);
         
         return true;
