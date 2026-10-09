@@ -1,4 +1,4 @@
-//SPDX-licence-identifier = GNU 3.0
+// SPDX-License-Identifier: MIT
 //Author = Samed Kahyaoglu
 //GitHub = urtuba
 
