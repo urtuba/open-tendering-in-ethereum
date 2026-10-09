@@ -1,0 +1,42 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.main-content img {
+  display: block;
+  margin: 1.5rem auto 0.5rem;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Figure captions are the italic paragraph right after a figure. */
+.main-content p > em:only-child {
+  display: block;
+  text-align: center;
+  color: #606c71;
+}
+
+/* 2026 notes are block quotes. */
+.main-content blockquote {
+  margin: 1.5rem 0;
+  padding: 0.6rem 1rem;
+  color: #3b4b52;
+  background: #f4f8fa;
+  border-left: 0.35rem solid #159957;
+  border-radius: 0 0.3rem 0.3rem 0;
+}
+
+.main-content blockquote p {
+  margin: 0.4rem 0;
+}
+
+.main-content table {
+  display: table;
+  width: auto;
+  margin: 1rem 0;
+}
+
+.main-content pre {
+  font-size: 0.9rem;
+}
