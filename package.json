@@ -1,0 +1,28 @@
+{
+  "name": "open-tendering-in-ethereum",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Open procedure tendering in Ethereum (ITU graduation project, 2021)",
+  "type": "module",
+  "scripts": {
+    "test": "hardhat test mocha"
+  },
+  "author": "Samed Kahyaoglu",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "4.2.0",
+    "@nomicfoundation/hardhat-ethers-chai-matchers": "3.0.12",
+    "@nomicfoundation/hardhat-ignition": "3.1.8",
+    "@nomicfoundation/hardhat-ignition-ethers": "3.1.6",
+    "@nomicfoundation/hardhat-keystore": "3.1.1",
+    "@nomicfoundation/hardhat-mocha": "4.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "3.0.11",
+    "@nomicfoundation/hardhat-toolbox-mocha-ethers": "4.0.0",
+    "@nomicfoundation/hardhat-typechain": "3.1.1",
+    "@nomicfoundation/hardhat-verify": "3.1.2",
+    "@nomicfoundation/ignition-core": "3.1.10",
+    "chai": "6.3.0",
+    "ethers": "6.17.0",
+    "hardhat": "3.19.0",
+    "mocha": "12.0.3"
+  }
+}
