@@ -6,6 +6,7 @@
 // that looks wrong. They are listed under "Known limitations" in the README.
 // The contract logic is never changed to make them pass.
 
+import { readFileSync } from "node:fs";
 import { expect } from "chai";
 import { network } from "hardhat";
 import { DAY, VARIANTS, TENDER, TENDER_HASH, bidHash, tenderHash } from "./helpers.js";
@@ -14,6 +15,9 @@ const { ethers, provider } = await network.getOrCreate();
 const [owner, alice, bob, carol, mallory] = await ethers.getSigners();
 
 const MAX_UINT = 2n ** 256n - 1n;
+
+// Hashes made with create_hash.py (checked on the Python side by test/test_create_hash.py).
+const vectors = JSON.parse(readFileSync(new URL("./vectors.json", import.meta.url), "utf8"));
 
 // Move the chain to the given time (seconds) and mine a block there.
 async function timeTo(ts) {
@@ -432,6 +436,47 @@ for (const variant of VARIANTS) {
       it("anyone can read the winner once the tender has ended", async function () {
         const c = await runTender([{ signer: alice, value: 900, secret: "a" }]);
         expect(await c.connect(mallory).getWinner()).to.equal(alice.address);
+      });
+    });
+
+    describe("hashes from create_hash.py", function () {
+      const bid = vectors.bid;
+      const tender = vectors.tender;
+
+      it("the JavaScript hash functions give the same hashes as the Python helper", function () {
+        expect(bidHash(bid.value, bid.secret)).to.equal(bid.hash);
+        expect(tenderHash(tender.estimated, tender.minimum, tender.maximum, tender.secret)).to.equal(tender.hash);
+      });
+
+      it("validateBid accepts a bid hash made by the helper", async function () {
+        const c = await deploy();
+        await c.connect(alice).makeBid(bid.hash);
+        await toEvaluation(c);
+        await c.connect(alice).validateBid(BigInt(bid.value), bid.secret);
+        expect(await c.bids(alice.address)).to.equal(BigInt(bid.value));
+        await expect(c.connect(alice).validateBid(BigInt(bid.value) + 1n, bid.secret)).to.be.revertedWithoutReason(ethers);
+      });
+
+      it("endTender accepts a tender hash made by the helper", async function () {
+        const c = await deploy({ hash: tender.hash });
+        await toPostTendering(c);
+        const args = [BigInt(tender.minimum), BigInt(tender.maximum), BigInt(tender.estimated)];
+        await expect(c.connect(owner).endTender(...args, "wrong-secret")).to.be.revertedWithoutReason(ethers);
+        await c.connect(owner).endTender(...args, tender.secret);
+        expect(await c.finished()).to.equal(true);
+        expect(await c.minimum()).to.equal(BigInt(tender.minimum));
+        expect(await c.maximum()).to.equal(BigInt(tender.maximum));
+        expect(await c.estimated()).to.equal(BigInt(tender.estimated));
+      });
+
+      it("a whole tender with helper hashes ends with a winner", async function () {
+        const c = await deploy({ hash: tender.hash });
+        await c.connect(alice).makeBid(bid.hash);
+        await toEvaluation(c);
+        await c.connect(alice).validateBid(BigInt(bid.value), bid.secret);
+        await toPostTendering(c);
+        await c.connect(owner).endTender(BigInt(tender.minimum), BigInt(tender.maximum), BigInt(tender.estimated), tender.secret);
+        expect(await c.getWinner()).to.equal(alice.address);
       });
     });
 
