@@ -1,0 +1,15 @@
+{
+  "description": "Known-answer vectors made with create_hash.py. test/test_create_hash.py checks that the helper produces these hashes, test/tender.test.js checks that both contracts accept them.",
+  "bid": {
+    "value": "1500",
+    "secret": "9y5lb0gi6zb4i0t0mv3004qndq9k",
+    "hash": "0xb754c06e7688eac97c641480265b4c76e942b9a1ea80537414fa8abacc1d90d0"
+  },
+  "tender": {
+    "estimated": "1000",
+    "minimum": "500",
+    "maximum": "1500",
+    "secret": "pwuffnurfpzp8671h1z3kmqup6mb1k42srqzmy0kgtkitiohrp3u",
+    "hash": "0x2ce1c74b780eb7f3f4549e947773fa3ce5afa372a1828f0ac94abd9d9bae16fe"
+  }
+}

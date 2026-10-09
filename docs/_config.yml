@@ -1,0 +1,11 @@
+title: Blockchain-based e-Tendering System
+description: Digital edition of the 2021 ITU graduation thesis
+theme: jekyll-theme-cayman
+lang: en
+show_downloads: false
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  toc_levels: 2..4
+  syntax_highlighter: rouge
